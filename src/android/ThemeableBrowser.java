@@ -96,6 +96,8 @@ public class ThemeableBrowser extends CordovaPlugin {
 
     private static final int TOOLBAR_DEF_HEIGHT = 44;
     private static final int DISABLED_ALPHA = 127;  // 50% AKA 127/255.
+    private static final int VISIBLE = 0;
+    private static final int INVISIBLE = 4;
 
     private static final String EVT_ERR = "ThemeableBrowserError";
     private static final String EVT_WRN = "ThemeableBrowserWarning";
@@ -108,7 +110,7 @@ public class ThemeableBrowser extends CordovaPlugin {
     private WebView inAppWebView;
     private EditText edittext;
     private CallbackContext callbackContext;
-
+    
     /**
      * Executes the request and returns PluginResult.
      *
@@ -483,7 +485,7 @@ public class ThemeableBrowser extends CordovaPlugin {
      * @return boolean
      */
     public boolean canGoBack() {
-        return this.inAppWebView != null && this.inAppWebView.canGoBack();
+       return this.inAppWebView != null && this.inAppWebView.canGoBack();
     }
 
     /**
@@ -637,6 +639,9 @@ public class ThemeableBrowser extends CordovaPlugin {
 
                 if (back != null) {
                     back.setEnabled(features.backButtonCanClose);
+                    if(features.backButton != null && !features.backButton.showFirstTime) {
+                        back.setVisibility(INVISIBLE);                        
+                    }
                 }
 
                 // Forward button
@@ -656,6 +661,9 @@ public class ThemeableBrowser extends CordovaPlugin {
 
                 if (back != null) {
                     back.setEnabled(false);
+                    if(features.backButton != null && !features.backButton.showFirstTime) {
+                        back.setVisibility(INVISIBLE);    
+                    }
                 }
 
 
@@ -746,6 +754,9 @@ public class ThemeableBrowser extends CordovaPlugin {
                     if (features.title.staticText != null) {
                         title.setText(features.title.staticText);
                     }
+                    if (features.title.size != 0) {
+                        title.setTextSize(features.title.size);
+                    }
                 }
 
                 // WebView
@@ -770,6 +781,15 @@ public class ThemeableBrowser extends CordovaPlugin {
 
                         if (back != null) {
                             back.setEnabled(canGoBack || features.backButtonCanClose);
+                            
+                            if(features.backButton != null && !features.backButton.showFirstTime) {
+                                if(canGoBack) {
+                                    back.setVisibility(VISIBLE);    
+                                }else {
+                                    back.setVisibility(INVISIBLE);    
+                                }
+                            }
+                                
                         }
 
                         if (forward != null) {
@@ -861,7 +881,7 @@ public class ThemeableBrowser extends CordovaPlugin {
                 }
 
                 if (back != null && features.backButton != null
-                        && !ALIGN_RIGHT.equals(features.backButton.align)) {
+                        && !ALIGN_RIGHT.equals(features.backButton.align)) {                    
                     leftButtonContainer.addView(back, 0);
                     leftContainerWidth
                             += back.getLayoutParams().width;
@@ -1403,7 +1423,7 @@ public class ThemeableBrowser extends CordovaPlugin {
         public BrowserButton[] customButtons;
         public boolean backButtonCanClose;
         public boolean disableAnimation;
-        public boolean fullscreen;
+        public boolean fullscreen;        
     }
 
     private static class Event {
@@ -1425,6 +1445,7 @@ public class ThemeableBrowser extends CordovaPlugin {
         public String wwwImagePressed;
         public double wwwImageDensity = 1;
         public String align = ALIGN_LEFT;
+        public boolean showFirstTime = true;
     }
 
     private static class BrowserMenu extends BrowserButton {
@@ -1443,5 +1464,6 @@ public class ThemeableBrowser extends CordovaPlugin {
         public String color;
         public String staticText;
         public boolean showPageTitle;
+        public float size = 0;
     }
 }

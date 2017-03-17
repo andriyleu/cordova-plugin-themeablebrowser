@@ -42,6 +42,8 @@
 #define    kThemeableBrowserPropWwwImageDensity @"wwwImageDensity"
 #define    kThemeableBrowserPropStaticText @"staticText"
 #define    kThemeableBrowserPropShowPageTitle @"showPageTitle"
+#define    kThemeableBrowserPropSize @"size"
+#define    kThemeableBrowserPropShowFirstTime @"showFirstTime"
 #define    kThemeableBrowserPropAlign @"align"
 #define    kThemeableBrowserPropTitle @"title"
 #define    kThemeableBrowserPropCancel @"cancel"
@@ -805,6 +807,11 @@
             leftWidth += width;
         }
     }
+    
+    BOOL showFirstTime = [self getBoolFromDict:_browserOptions.backButton withKey:kThemeableBrowserPropShowFirstTime];
+    if (showFirstTime == false) {
+        self.backButton.hidden = YES;
+    }
 
     // Back and forward buttons must be added with special ordering logic such
     // that back button is always on the left of forward button if both buttons
@@ -881,6 +888,11 @@
 
         if (_browserOptions.title[kThemeableBrowserPropStaticText]) {
             self.titleLabel.text = _browserOptions.title[kThemeableBrowserPropStaticText];
+        }
+        
+        if (_browserOptions.title[kThemeableBrowserPropSize]) {
+            CGFloat textSize = [self getFloatFromDict:_browserOptions.title withKey:kThemeableBrowserPropSize withDefault:13.0];
+            self.titleLabel.font = [UIFont boldSystemFontOfSize:textSize];
         }
 
         [self.toolbar addSubview:self.titleLabel];
@@ -1486,6 +1498,16 @@
 {
     if (self.backButton) {
         self.backButton.enabled = _browserOptions.backButtonCanClose || theWebView.canGoBack;
+        
+        BOOL showFirstTime = [self getBoolFromDict:_browserOptions.backButton withKey:kThemeableBrowserPropShowFirstTime];
+        if (showFirstTime == false) {
+            if(theWebView.canGoBack) {
+                self.backButton.hidden = NO;
+            }else {
+                self.backButton.hidden = YES;
+            }
+        }
+        
     }
 
     if (self.forwardButton) {
