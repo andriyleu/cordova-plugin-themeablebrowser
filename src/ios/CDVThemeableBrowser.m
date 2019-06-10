@@ -891,7 +891,7 @@
         }
         
         if (_browserOptions.title[kThemeableBrowserPropSize]) {
-            CGFloat textSize = [self getFloatFromDict:_browserOptions.title withKey:kThemeableBrowserPropSize withDefault:13.0];
+            CGFloat textSize = [self getFloatFromDict:_browserOptions.title withKey:kThemeableBrowserPropSize withDefault:14.0];
             self.titleLabel.font = [UIFont boldSystemFontOfSize:textSize];
         }
 
