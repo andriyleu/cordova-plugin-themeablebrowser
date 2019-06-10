@@ -745,7 +745,7 @@ public class ThemeableBrowser extends CordovaPlugin {
                             = new FrameLayout.LayoutParams(
                             LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
                     titleParams.gravity = Gravity.CENTER;
-                    Typeface type = Typeface.createFromAsset(getAssets(),"fonts/Nunito-SemiBold.ttf");
+                    Typeface type = Typeface.createFromAsset(cordova.getActivity().getApplicationContext().getAssets(), "fonts/Nunito-SemiBold.ttf");
                     title.setTypeface(null, type);
                     title.setLayoutParams(titleParams);
                     title.setSingleLine();
