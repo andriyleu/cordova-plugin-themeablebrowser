@@ -745,6 +745,11 @@ public class ThemeableBrowser extends CordovaPlugin {
                             = new FrameLayout.LayoutParams(
                             LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
                     titleParams.gravity = Gravity.CENTER;
+                    try {     
+                        Typeface type = Typeface.createFromAsset(cordova.getActivity().getApplicationContext().getAssets(), "www/assets/fonts/Nunito-SemiBold.ttf");
+                    } catch (Exception e) {
+                        Log.e(TAG, "Could not get typeface because " + e.getMessage());
+                    }
                     title.setLayoutParams(titleParams);
                     title.setSingleLine();
                     title.setEllipsize(TextUtils.TruncateAt.END);
@@ -758,7 +763,6 @@ public class ThemeableBrowser extends CordovaPlugin {
                     if (features.title.size != 0) {
                         title.setTextSize(features.title.size);
                     }
-                    Typeface type = Typeface.createFromAsset(cordova.getActivity().getApplicationContext().getAssets(), "www/assets/fonts/Nunito-SemiBold.ttf");
                     title.setTypeface(type);
                 }
 
