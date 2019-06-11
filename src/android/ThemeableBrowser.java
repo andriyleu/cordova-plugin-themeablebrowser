@@ -756,7 +756,7 @@ public class ThemeableBrowser extends CordovaPlugin {
                         title.setText(features.title.staticText);
                     }
                     if (features.title.size != 0) {
-                        title.setTextSize(features.title.size);j
+                        title.setTextSize(features.title.size);
                     }
                     Typeface type = null;
                     try {
