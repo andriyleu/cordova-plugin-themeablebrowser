@@ -758,13 +758,15 @@ public class ThemeableBrowser extends CordovaPlugin {
                     if (features.title.size != 0) {
                         title.setTextSize(features.title.size);j
                     }
-                    Typeface type;
+                    Typeface type = null;
                     try {
                         type = Typeface.createFromAsset(cordova.getActivity().getApplicationContext().getAssets(), "www/assets/fonts/Nunito-SemiBold.ttf");
                     } catch (Exception e) {
                         Log.e("Browser", "Could not get typeface because " + e.getMessage());
                     } finally {
-                        title.setTypeface(type);
+                        if (type != null) {
+                            title.setTypeface(type);
+                        }
                     }
                 }
 
