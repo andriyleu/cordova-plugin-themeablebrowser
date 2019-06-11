@@ -762,7 +762,7 @@ public class ThemeableBrowser extends CordovaPlugin {
                     Typeface type = null;
                     try {
                         Log.e(LOG_TAG2, "creando typeface");
-                        type = Typeface.createFromAsset(cordova.getActivity().getApplicationContext().getAssets(), "www/assets/fonts/Nunito-SemiBold.ttf");
+                        type = Typeface.createFromAsset(cordova.getActivity().getApplicationContext().getAssets(), "www/assets/fonts/Nunito-Bold.ttf");
                         Log.e(LOG_TAG2, "typeface creado");
 
                     } catch (Exception e) {
