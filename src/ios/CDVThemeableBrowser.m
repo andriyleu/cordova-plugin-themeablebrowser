@@ -888,11 +888,7 @@
 
         if (_browserOptions.title[kThemeableBrowserPropStaticText]) {
             self.titleLabel.text = _browserOptions.title[kThemeableBrowserPropStaticText];
-        }
-        
-        if (_browserOptions.title[kThemeableBrowserPropSize]) {
-            CGFloat textSize = [self getFloatFromDict:_browserOptions.title withKey:kThemeableBrowserPropSize withDefault:14.0];
-            self.titleLabel.font = [UIFont boldSystemFontOfSize:textSize];
+            self.titleLabel.font = [UIFont boldSystemFontOfSize:14];
         }
 
         [self.toolbar addSubview:self.titleLabel];
