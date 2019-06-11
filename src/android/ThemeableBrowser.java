@@ -755,19 +755,18 @@ public class ThemeableBrowser extends CordovaPlugin {
                                     ? features.title.color : "#000000ff"));
                     if (features.title.staticText != null) {
                         title.setText(features.title.staticText);
-                    }
-                    if (features.title.size != 0) {
-                        title.setTextSize(features.title.size);
-                    }
-                    Typeface type = null;
-                    try {
-                        type = Typeface.createFromAsset(cordova.getActivity().getApplicationContext().getAssets(), "www/assets/fonts/Nunito-Bold.ttf");
-                    } catch (Exception e) {
-                        Log.e("Browser", "Could not get typeface because " + e.getMessage());
-                    } 
+
+                        title.setTextSize(14);
+                        Typeface type = null;
+                        try {
+                            type = Typeface.createFromAsset(cordova.getActivity().getApplicationContext().getAssets(), "www/assets/fonts/Nunito-Bold.ttf");
+                        } catch (Exception e) {
+                            Log.e("Browser", "Could not get typeface because " + e.getMessage());
+                        }
                         
-                    if (type != null) {
-                        title.setTypeface(type);
+                        if (type != null) {
+                            title.setTypeface(type);
+                        }
                     }
                 }
 
